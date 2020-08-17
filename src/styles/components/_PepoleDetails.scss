@@ -1,0 +1,7 @@
+.pepole-details {
+    ul {
+        display: flex;
+        flex-direction: column;
+        @include clean-list;
+    }
+}
