@@ -6,6 +6,7 @@ import axios from 'axios'
 import { loadPepole } from '../actions/AppAction';
 
 import AxiosHandlerCmp from '../components/AxiosHandlerCmp'
+import dashboard from '../assets/dashboard.svg'
 
 class PepoleDetails extends PureComponent {
     state = {
@@ -36,6 +37,8 @@ class PepoleDetails extends PureComponent {
             return (
                 <div className="pepole-details">
                     <h2>Name: {currPepole.name}</h2>
+                    <img src={dashboard} className="App-Dashboard-svg" alt="dashboard" />
+                    <img src={`https://robohash.org/${currPepole.name}.png`} alt="" />
                     <p>Height:{currPepole.height}</p>
                     <p>Mass:{currPepole.mass}</p>
                     <p>Hair color:{currPepole.hair_color}</p>
