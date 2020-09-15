@@ -16,12 +16,7 @@ class PepoleDetails extends PureComponent {
         const id = this.props.match.params.id;
         this.props.loadPepole(id);
     }
-    // componentDidMount() {
-    //     axios.get('https://swapi.dev/api/planets/1/').then(res => {
-    //         console.log(res)
-    //         this.setState({ homeworld: res.data.name })
-    //     })
-    // }
+
     handelAxiosGet = async (url) => {
         const res = await axios.get(url)
         // .then(res => res.data)

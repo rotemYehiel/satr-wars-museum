@@ -11,7 +11,6 @@ class PepoleList extends PureComponent {
     }
     componentWillMount() {
         this.loadPepoles();
-        // console.log('componentWillMount')
     }
     loadPepoles = () => {
         this.props.loadPepoles(this.state.filterBy);
@@ -28,7 +27,6 @@ class PepoleList extends PureComponent {
     }
     async componentDidMount() {
         this.props.loadPepoles(this.state.filterBy);
-        // console.log('componentDidMount')
     }
     render() {
         const { pepoles } = this.props;
