@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { HashRouter as Link } from 'react-router-dom';
 
 import PepoleFilter from '../components/PepoleFilter'
 import { loadPepoles } from '../actions/AppAction';
@@ -44,6 +44,11 @@ class PepoleList extends PureComponent {
                             </Link>
                         ))}
                     </ul>
+                    <button className="add-btn">
+                        <Link to={'/PepoleEdit/'} >
+                            <li className="fas fa-plus"></li>
+                        </Link>
+                    </button>
                 </div>
             )
 

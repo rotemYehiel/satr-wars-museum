@@ -1,20 +1,33 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
+import { HashRouter as Link } from 'react-router-dom';
 import moment from 'moment'
 
-import { loadPepole } from '../actions/AppAction';
+import { loadPerson, removePerson } from '../actions/AppAction';
 
 import AxiosHandlerCmp from '../components/AxiosHandlerCmp'
 
 class PepoleDetails extends PureComponent {
     state = {
-        homeworld: ''
+        homeworld: '',
+        peopleId: ''
     }
     componentWillMount() {
         const id = this.props.match.params.id;
-        this.props.loadPepole(id);
+        this.setState((prevState) => {
+            return {
+                ...prevState,
+                peopleId: id
+            };
+        });
+        this.props.loadPerson(id);
     }
-
+    onGoBackClickHandler = () => {
+        this.props.history.go(-1);
+    }
+    onRemoveClickHandler = () => {
+        this.props.removePerson(this.state.peopleId);
+    }
     // handelAxiosGet = async (url) => {
     //     const res = await axios.get(url)
     //     // .then(res => res.data)
@@ -23,52 +36,62 @@ class PepoleDetails extends PureComponent {
     //     return (data);
     // }
     render() {
-        const { currPepole } = this.props;
-        if (!currPepole) {
-            return (<div>no pepole</div>)
+        const { currPerson } = this.props;
+        if (!currPerson) {
+            return (<div>no person</div>)
         } else {
             return (
-                <div className="pepole-details">
-                    <h2>Name: {currPepole.name}</h2>
-                    <img src={`https://robohash.org/${currPepole.name}.png`} alt="" />
-                    <p>Height:{currPepole.height}</p>
-                    <p>Mass:{currPepole.mass}</p>
-                    <p>Hair color:{currPepole.hair_color}</p>
-                    <p>Skin color:{currPepole.skin_color}</p>
-                    <p>Eye color:{currPepole.eye_color}</p>
-                    <p>Year of birth:{currPepole.birth_year}</p>
-                    <p>gender:{currPepole.gender}</p>
-                    <p>His homeworld:<AxiosHandlerCmp url={currPepole.homeworld} /></p>
-                    <ul className="Films-list-ul">Films:
-                            {currPepole.films.map((film) => (
-                        <li key={film} className="film">
-                            <AxiosHandlerCmp url={film} />
-                        </li>
-                    ))}
-                    </ul>
-                    {(currPepole.species.length > 0) ? (<ul className="species-list-ul">Species:
-                        {currPepole.species.map((specie) => (
-                            <li key={specie} className="specie">
-                                <AxiosHandlerCmp url={specie} />
-                            </li>
-                        ))}
-                    </ul>) : null}
-                    {(currPepole.vehicles.length > 0) ? (<ul className="vehicles-list-ul">Vehicles:
-                        {currPepole.vehicles.map((vehicle) => (
-                            <li key={vehicle} className="vehicle">
-                                <AxiosHandlerCmp url={vehicle} />
-                            </li>
-                        ))}
-                    </ul>) : null}
-                    {(currPepole.starships.length > 0) ? (<ul className="starships-list-ul">Starships:
-                        {currPepole.starships.map((starship) => (
-                            <li key={starship} className="starship">
-                                <AxiosHandlerCmp url={starship} />
-                            </li>
-                        ))}
-                    </ul>) : null}
-                    <p>Created at: {moment(currPepole.created).format('LLL')}</p>
-                    <p>Edited at: {moment(currPepole.edited).format('LLL')}</p>
+                <div className="person-details">
+                    <h2>Name: {currPerson.name}</h2>
+                    <section className="buttons-sec">
+                        <button className="edit-btn">
+                            <Link to={`/PepoleEdit/${currPerson.id}`} >
+                                <li className="fas fa-edit"></li>
+                            </Link></button>
+                        <button className="remove-btn fas fa-trash-alt" onClick={this.onRemoveClickHandler}></button>
+                        <button className="go-back-btn fas fa-undo-alt" onClick={this.onGoBackClickHandler}></button>
+                    </section>
+                    <img className="people-img" src={`https://robohash.org/${currPerson.name}.png`} alt="" />
+                    <section className="details-sec">
+                        <p><span className="description">Height:</span> {currPerson.height}</p>
+                        <p><span className="description">Mass:</span> {currPerson.mass}</p>
+                        <p><span className="description">Hair color:</span> {currPerson.hair_color}</p>
+                        <p><span className="description">Skin color:</span> {currPerson.skin_color}</p>
+                        <p><span className="description">Eye color:</span> {currPerson.eye_color}</p>
+                        <p><span className="description">Year of birth:</span> {currPerson.birth_year}</p>
+                        <p><span className="description">gender:</span> {currPerson.gender}</p>
+                        {(currPerson.homeworld) ? (<p><span className="description">His homeworld:</span> <AxiosHandlerCmp url={currPerson.homeworld} /></p>) : null}
+                        {(currPerson.films) ? (<ul className="Films-list-ul"><span className="description">Films:</span>
+                            {currPerson.films.map((film) => (
+                                <li key={film} className="film">
+                                    <AxiosHandlerCmp url={film} />
+                                </li>
+                            ))}
+                        </ul>) : null}
+                        {(currPerson.species) ? (<ul className="species-list-ul"><span className="description">Species:</span>
+                            {currPerson.species.map((specie) => (
+                                <li key={specie} className="specie">
+                                    <AxiosHandlerCmp url={specie} />
+                                </li>
+                            ))}
+                        </ul>) : null}
+                        {(currPerson.vehicles) ? (<ul className="vehicles-list-ul"><span className="description">Vehicles:</span>
+                            {currPerson.vehicles.map((vehicle) => (
+                                <li key={vehicle} className="vehicle">
+                                    <AxiosHandlerCmp url={vehicle} />
+                                </li>
+                            ))}
+                        </ul>) : null}
+                        {(currPerson.starships) ? (<ul className="starships-list-ul"><span className="description">Starships:</span>
+                            {currPerson.starships.map((starship) => (
+                                <li key={starship} className="starship">
+                                    <AxiosHandlerCmp url={starship} />
+                                </li>
+                            ))}
+                        </ul>) : null}
+                        <p><span className="description">Created at:</span>  {moment(currPerson.created).format('LLL')}</p>
+                        {(currPerson.edited) ? (<p><span className="description">Edited at:</span>  {moment(currPerson.edited).format('LLL')}</p>) : null}
+                    </section>
                 </div>
             )
 
@@ -77,11 +100,12 @@ class PepoleDetails extends PureComponent {
 }
 const mapStateToProps = (state) => {
     return {
-        currPepole: state.app.currPepole,
+        currPerson: state.app.currPerson,
     }
 }
 const mapDispatchToProps = {
-    loadPepole
+    loadPerson,
+    removePerson
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PepoleDetails)
 

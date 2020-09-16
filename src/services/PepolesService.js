@@ -22,26 +22,59 @@ async function getPepoles(filterBy = null) {
     }
 
     if (filterBy && filterBy.term) {
-        pepolesToReturn = filter(filterBy.term, pepolesToReturn)
+        pepolesToReturn = _filter(filterBy.term, pepolesToReturn)
     }
     pepolesWithId = JSON.parse(JSON.stringify(pepolesToReturn));
     return pepolesToReturn
 }
 
-async function getPepole(id) {
+async function getPerson(id) {
     // console.log("pepolesWithId:", localStorage.getItem('pepoles'))
-    const currPepole = await pepolesWithId.filter(people => {
-        return (people.id === id)
+    const currPerson = await pepolesWithId.filter(person => {
+        return (person.id === id)
     })
-    return currPepole[0];
+    return currPerson[0];
 }
 
+async function removePerson(idToRemove) {
+    try {
+        let peoples = pepolesWithId;
+        const idx = peoples.findIndex(person => person.id === idToRemove)
+        peoples.splice(idx, 1)
+        localStorage.setItem('pepoles', JSON.stringify(peoples));
+        return idx;
+    } catch (err) {
+        console.log(`ERROR: cannot remove person ${idToRemove}`);
+        throw err;
+    }
+}
 
+async function savePerson(personToAdd) {
+    return personToAdd.id ? _updatePerson(personToAdd) : _addPerson(personToAdd)
+}
 
-function filter(term, peoplesToFilter) {
+function _addPerson(peopleToAdd) {
+    peopleToAdd.id = _makeId();
+    peopleToAdd.created = Date.now();
+    let peoples = pepolesWithId;
+    peoples.push(peopleToAdd);
+    localStorage.setItem('pepoles', JSON.stringify(peoples));
+    return peopleToAdd;
+}
+function _updatePerson(personToupdate) {
+    personToupdate.edited = Date.now();
+    let peoples = pepolesWithId;
+    const idx = peoples.findIndex(person => person.id === personToupdate.id)
+    if (idx !== -1) {
+        peoples[idx] = personToupdate
+    }
+    localStorage.setItem('pepoles', JSON.stringify(peoples));
+    return personToupdate;
+}
+function _filter(term, peoplesToFilter) {
     term = term.toLocaleLowerCase()
-    return peoplesToFilter.filter(people => {
-        return people.name.toLocaleLowerCase().includes(term)// ||
+    return peoplesToFilter.filter(person => {
+        return person.name.toLocaleLowerCase().includes(term)// ||
         // contact.phone.toLocaleLowerCase().includes(term) ||
         // contact.email.toLocaleLowerCase().includes(term)
     })
@@ -63,7 +96,9 @@ function filter(term, peoplesToFilter) {
 
 export default {
     getPepoles,
-    getPepole
+    getPerson,
+    removePerson,
+    savePerson
 }
 
 function _makeId(length = 10) {

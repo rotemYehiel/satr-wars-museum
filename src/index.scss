@@ -1,6 +1,6 @@
 /* SETUP*/
 
-// @import './styles/setup/typography';
+@import './styles/setup/_typography';
 @import './styles/setup/variables';
 @import './styles/setup/mixins';
 // @import 'setup/functions';
@@ -14,10 +14,11 @@
 /* PAGES */
 
 @import './styles/pages/_PepoleList.scss';
+@import './styles/pages/_PepoleDetails.scss';
+@import './styles/pages/_PepoleEdit.scss';
 
 /* CMPS */
 
-@import './styles/components/_PepoleDetails.scss';
 
 /* DEFAULTS */
 

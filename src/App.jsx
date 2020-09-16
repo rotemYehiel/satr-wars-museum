@@ -6,6 +6,7 @@ import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 
 import PepoleList from './pages/PepoleList'
+import PepoleEdit from './pages/PepoleEdit'
 import PepoleDetails from './pages/PepoleDetails'
 
 const history = createBrowserHistory();
@@ -18,6 +19,8 @@ function App() {
           <button style={(history.location.pathname === "#/PepoleList") ? { visibility: "hidden" } : { visibility: "visible" }}><Link to='/PepoleList'>Go To Pepole List</Link></button>
           <Switch>
             <Route path="/PepoleList" exact component={PepoleList} />
+            <Route path="/PepoleEdit" exact component={PepoleEdit} />
+            <Route path="/PepoleEdit/:id" component={PepoleEdit} />
             <Route path="/Pepole/:id" component={PepoleDetails} />
           </Switch>
         </main>
