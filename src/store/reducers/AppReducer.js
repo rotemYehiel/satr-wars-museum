@@ -5,7 +5,7 @@ const initialState = {
     filterBy: ''
 }
 export default function AppReducer(state = initialState, action) {
-    console.log("action:", action)
+    // console.log("action:", action)
     switch (action.type) {
         case 'SET_PEPOLES':
             return {

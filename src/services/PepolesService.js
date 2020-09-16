@@ -18,7 +18,7 @@ async function getPepoles(filterBy = null) {
             return people
         })
         localStorage.setItem('pepoles', JSON.stringify(pepolesToReturn));
-        console.log("localStorage.getItem('peoples'):", localStorage.getItem('peoples'))
+        // console.log("localStorage.getItem('peoples'):", localStorage.getItem('peoples'))
     }
 
     if (filterBy && filterBy.term) {
@@ -29,7 +29,7 @@ async function getPepoles(filterBy = null) {
 }
 
 async function getPepole(id) {
-    console.log("pepolesWithId:", localStorage.getItem('pepoles'))
+    // console.log("pepolesWithId:", localStorage.getItem('pepoles'))
     const currPepole = await pepolesWithId.filter(people => {
         return (people.id === id)
     })
@@ -48,18 +48,18 @@ function filter(term, peoplesToFilter) {
 }
 
 
-function sort(arr) {
-    return arr.sort((a, b) => {
-        if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
-            return -1;
-        }
-        if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
-            return 1;
-        }
+// function sort(arr) {
+//     return arr.sort((a, b) => {
+//         if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
+//             return -1;
+//         }
+//         if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
+//             return 1;
+//         }
 
-        return 0;
-    })
-}
+//         return 0;
+//     })
+// }
 
 export default {
     getPepoles,

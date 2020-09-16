@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserHistory } from 'history';
-import { HashRouter as Router, Route, Switch, Link, HashRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
+// import { connect } from 'react-redux';
 
 import './App.css';
 

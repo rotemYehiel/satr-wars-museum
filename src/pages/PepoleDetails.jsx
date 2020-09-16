@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
 import moment from 'moment'
-import axios from 'axios'
 
 import { loadPepole } from '../actions/AppAction';
 
 import AxiosHandlerCmp from '../components/AxiosHandlerCmp'
-import dashboard from '../assets/dashboard.svg'
 
 class PepoleDetails extends PureComponent {
     state = {
@@ -17,13 +15,13 @@ class PepoleDetails extends PureComponent {
         this.props.loadPepole(id);
     }
 
-    handelAxiosGet = async (url) => {
-        const res = await axios.get(url)
-        // .then(res => res.data)
-        const data = res.data.name
-        console.log("data:", data)
-        return (data);
-    }
+    // handelAxiosGet = async (url) => {
+    //     const res = await axios.get(url)
+    //     // .then(res => res.data)
+    //     const data = res.data.name
+    //     console.log("data:", data)
+    //     return (data);
+    // }
     render() {
         const { currPepole } = this.props;
         if (!currPepole) {
@@ -32,7 +30,6 @@ class PepoleDetails extends PureComponent {
             return (
                 <div className="pepole-details">
                     <h2>Name: {currPepole.name}</h2>
-                    <img src={dashboard} className="App-Dashboard-svg" alt="dashboard" />
                     <img src={`https://robohash.org/${currPepole.name}.png`} alt="" />
                     <p>Height:{currPepole.height}</p>
                     <p>Mass:{currPepole.mass}</p>
