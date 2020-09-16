@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-export default class PepoleFilter extends PureComponent {
+export default class PersonFilter extends PureComponent {
     state = {
         term: '',
     };
@@ -14,7 +14,7 @@ export default class PepoleFilter extends PureComponent {
 
     render() {
         return (
-            <form className="pepole-filter">
+            <form className="person-filter">
                 <input
                     type="text"
                     placeholder="Enter Name..."

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { savePerson, loadPerson } from '../actions/AppAction';
 
-class PepoleEdit extends PureComponent {
+class PersonEdit extends PureComponent {
     state = {
         person: {
             id: '',
@@ -135,4 +135,4 @@ const mapDispatchToProps = {
     loadPerson,
     savePerson
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PepoleEdit)
+export default connect(mapStateToProps, mapDispatchToProps)(PersonEdit)

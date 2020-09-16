@@ -1,23 +1,23 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
-import { HashRouter as Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import moment from 'moment'
 
 import { loadPerson, removePerson } from '../actions/AppAction';
 
 import AxiosHandlerCmp from '../components/AxiosHandlerCmp'
 
-class PepoleDetails extends PureComponent {
+class PersonDetails extends PureComponent {
     state = {
         homeworld: '',
-        peopleId: ''
+        personId: ''
     }
     componentWillMount() {
         const id = this.props.match.params.id;
         this.setState((prevState) => {
             return {
                 ...prevState,
-                peopleId: id
+                personId: id
             };
         });
         this.props.loadPerson(id);
@@ -26,7 +26,7 @@ class PepoleDetails extends PureComponent {
         this.props.history.go(-1);
     }
     onRemoveClickHandler = () => {
-        this.props.removePerson(this.state.peopleId);
+        this.props.removePerson(this.state.personId);
     }
     // handelAxiosGet = async (url) => {
     //     const res = await axios.get(url)
@@ -45,13 +45,13 @@ class PepoleDetails extends PureComponent {
                     <h2>Name: {currPerson.name}</h2>
                     <section className="buttons-sec">
                         <button className="edit-btn">
-                            <Link to={`/PepoleEdit/${currPerson.id}`} >
+                            <Link to={`/PersonEdit/${currPerson.id}`} >
                                 <li className="fas fa-edit"></li>
                             </Link></button>
                         <button className="remove-btn fas fa-trash-alt" onClick={this.onRemoveClickHandler}></button>
                         <button className="go-back-btn fas fa-undo-alt" onClick={this.onGoBackClickHandler}></button>
                     </section>
-                    <img className="people-img" src={`https://robohash.org/${currPerson.name}.png`} alt="" />
+                    <img className="person-img" src={`https://robohash.org/${currPerson.name}.png`} alt="" />
                     <section className="details-sec">
                         <p><span className="description">Height:</span> {currPerson.height}</p>
                         <p><span className="description">Mass:</span> {currPerson.mass}</p>
@@ -107,5 +107,5 @@ const mapDispatchToProps = {
     loadPerson,
     removePerson
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PepoleDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(PersonDetails)
 
