@@ -25,8 +25,10 @@ class PersonDetails extends PureComponent {
     onGoBackClickHandler = () => {
         this.props.history.go(-1);
     }
-    onRemoveClickHandler = () => {
-        this.props.removePerson(this.state.personId);
+    onRemoveClickHandler = async () => {
+        console.log(this.state.personId)
+        await this.props.removePerson(this.state.personId);
+        this.props.history.go(-1);
     }
     // handelAxiosGet = async (url) => {
     //     const res = await axios.get(url)
